@@ -28,11 +28,11 @@ After that
 ## Code
 
 let
-    Source = Folder.Files("C:\pathToFolder\ExcelBilancio"),
-    AnnoMese_AddCol = Table.AddColumn(Source, "AnnoMese", each Text.BeforeDelimiter([Name],".")),
-    AnnoMese_ChangeType = Table.TransformColumnTypes(AnnoMese_AddCol,{{"AnnoMese", Int64.Type}}),
-    #"Removed Other Columns" = Table.SelectColumns(AnnoMese_ChangeType,{"Content", "AnnoMese"}),
-    TableFromBinary_AddCol = Table.AddColumn(#"Removed Other Columns", "table", each Excel.Workbook([Content])),
+  Source = Folder.Files("C:\pathToFolder\ExcelBilancio"), 
+  AnnoMese_AddCol = Table.AddColumn(Source, "AnnoMese", each Text.BeforeDelimiter([Name],".")),
+  AnnoMese_ChangeType = Table.TransformColumnTypes(AnnoMese_AddCol,{{"AnnoMese", Int64.Type}}),
+  #"Removed Other Columns" = Table.SelectColumns(AnnoMese_ChangeType,{"Content", "AnnoMese"}),
+  TableFromBinary_AddCol = Table.AddColumn(#"Removed Other Columns", "table", each Excel.Workbook([Content])),
     ExpandDataFromTable = Table.ExpandTableColumn(TableFromBinary_AddCol, "table", {"Data"}, {"table.Data"}),
     PromoteTableHeaders_AddCol = Table.AddColumn(ExpandDataFromTable, "promotedTableHeader", each Table.PromoteHeaders([table.Data]) as table),
     #"Removed Other Columns1" = Table.SelectColumns(PromoteTableHeaders_AddCol,{"AnnoMese", "promotedTableHeader"}),
