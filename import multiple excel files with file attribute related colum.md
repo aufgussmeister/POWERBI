@@ -26,7 +26,7 @@ After that
 
 
 ## Code
-'
+
 let
     Source = Folder.Files("C:\pathToFolder\ExcelBilancio"),
     AnnoMese_AddCol = Table.AddColumn(Source, "AnnoMese", each Text.BeforeDelimiter([Name],".")),
@@ -41,4 +41,3 @@ let
 in
     #"Rename Headers"
     
-'
